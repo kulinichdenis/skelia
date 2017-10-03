@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchUser } from 'reducers/user'
-import { ui, Login } from 'components'
+import { Login } from 'components'
+import { Progress } from 'components/UI'
 
 class LoginUser extends Component {
   constructor() {
@@ -16,9 +17,9 @@ class LoginUser extends Component {
   render() {
     const { progress, error } = this.props
     return (
-      <div>
+      <div className="login">
         { progress.status ? 
-          <ui.Progress/> :
+          <Progress/> :
           <Login onSubmit={this.login} serverError={error}/>
         }
       </div>
