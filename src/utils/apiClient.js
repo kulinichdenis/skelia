@@ -9,7 +9,7 @@ const auth = (base) => `${base}/authentication/authenticate?`
 const drafts = (base) => `${base}/be/motor/gap/drafts?` 
 const logout = (base) => `${base}/authentication/logout?`
 
-const protectHeadres = (token) => ({
+const protectHeaders = (token) => ({
   'Content-Type': 'application/json',
   'Qover-Api-Version': '1.0',
   'Authorization': `Bearer ${token}`
@@ -38,6 +38,6 @@ export const logoutUser = (token) => {
  return axios({
     method: 'post',
     url: pipe(logout, apiKey)(baseUrl),
-    headers: protectHeadres(token) 
+    headers: protectHeaders(token) 
   }) 
 } 
