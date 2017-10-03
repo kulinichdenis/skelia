@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Button from 'material-ui/Button'
+import Avatar from 'material-ui/Avatar'
 import { logout } from 'reducers/user'
 
 class User extends Component {
@@ -14,8 +15,11 @@ class User extends Component {
     const logoutSetArgsHistory = logout.bind(null, history)
     return (
       <div>
-        User: { userId }
-        <Button onClick={logoutSetArgsHistory}>Logout</Button>
+        <div className="user user--header">
+          <Avatar>U</Avatar>
+          <Button onClick={logoutSetArgsHistory}>Logout</Button>
+        </div>
+        UserID: { userId }
       </div>
     )
   }
