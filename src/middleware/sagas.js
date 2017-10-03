@@ -9,7 +9,6 @@ function* fetchUser(action) {
   yield put(start_progress())
   try {
     const auth = yield call(authUser, action.payload)
-    const { token, userId } = auth.data 
     yield put(fetchUserSuccess(auth.data))
     yield put(stop_progress())
     yield action.meta.push('/user')
@@ -21,9 +20,14 @@ function* fetchUser(action) {
 
 function* logout(action) {
   const token = yield select(tokenFromUserData)
-  const result = yield call(logoutUser, token)
-  yield put(defaultUserState())
-  yield action.meta.push('/')
+  try {
+    const result = yield call(logoutUser, token)
+    yield put(defaultUserState())
+    yield action.meta.push('/')
+  } catch(error) {
+    yield put(fetchUserError('Problem with logout'))
+    yield action.meta.push('/')
+  }
 }
 
 function* userSaga() {
