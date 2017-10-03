@@ -9,7 +9,7 @@ class Login extends Component {
     const { actionLogin, serverError, handleSubmit } = this.props
     return (
       <div>
-        <p>{serverError}</p>
+        <p className="error">{serverError}</p>
         <form onSubmit={handleSubmit}>
           <Field name="email" component={Input} label="Email" />
            <Field name="password" component={Input} type="password" label="Pass" />
