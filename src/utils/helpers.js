@@ -3,7 +3,7 @@ export const tokenFromUserData = (state) => {
   return token
 }
 
-export const InputValidate = values => {
+export const inputValidate = values => {
   const errors = {}
   if (!values.password) {
     errors.password = 'Required'
