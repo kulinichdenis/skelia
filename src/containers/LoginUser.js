@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUser } from 'reducers/user'
+import { fetchUser } from '../reducers/user'
 import { Login } from 'components'
 import { Progress } from 'components/UI'
 

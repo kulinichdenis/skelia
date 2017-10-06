@@ -2,28 +2,52 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Button from 'material-ui/Button'
-import Avatar from 'material-ui/Avatar'
-import { logout } from 'reducers/user'
+import { logout, sendEmail, setUserEmail } from 'reducers/user'
+import { Price, UserForm } from 'components'
+import { Progress } from 'components/UI'
 
 class User extends Component {
   constructor() {
     super()
     this.getUser = this.getUser.bind(this)
+    this.handlePrice = this.handlePrice.bind(this)
   }
+  
+  handlePrice({ email }) {
+    const { setUserEmail, sendEmail } = this.props
+    setUserEmail(email)
+    sendEmail()
+  }  
   getUser() {
-    const { data: { userId }, logout, history } = this.props
+    // debugger
+    const { data: { userId }, logout, history, progress, prices, emailStore } = this.props
     const logoutSetArgsHistory = logout.bind(null, history)
+    const { email, statusText } = emailStore
+    console.log(email, statusText)
+    // debugger
     return (
       <div>
-        <div className="user user--header">
-          <Avatar>U</Avatar>
-          <Button onClick={logoutSetArgsHistory}>Logout</Button>
-        </div>
-        UserID: { userId }
+        { progress.status ? <Progress /> :
+          <div>
+            <div className="user user--header">
+              UserID: { userId }
+              <Button onClick={logoutSetArgsHistory}>Logout</Button>
+            </div>
+            { email && statusText && <p>{statusText}</p> }
+            <UserForm onSubmit={this.handlePrice} />
+            <div className="content">
+              { prices.map((props, index) =>
+                  <Price key={index.toString()} {...props} handlePrice={this.handlePrice} />
+                )
+              }
+            </div>
+          </div>
+        }  
       </div>
     )
   }
   render() {
+    console.log('test')
     const { userId } = this.props.data
     return (
       <div>
@@ -33,6 +57,11 @@ class User extends Component {
   }
 }
 
-const mapToProps = (state) => ({ data: state.user.data })
+const mapToProps = (state) => ({
+  data: state.user.data,
+  prices: state.user.prices,
+  emailStore: state.user.emailStore,
+  progress: state.progress
+})
 
-export default connect(mapToProps, { logout })(User)
+export default connect(mapToProps, { logout, sendEmail, setUserEmail })(User)
