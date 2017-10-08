@@ -1,39 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import R from 'ramda'
 import { Field, reduxForm } from 'redux-form'
-import Input from './Form/Input'
-import Select from 'material-ui/Select';
-import { InputLabel } from 'material-ui/Input'
-import { userFormValidate } from 'utils/helpers'
+import { Input, Select } from './Form'
+import SelectUI from 'material-ui/Select'
+import TextField from 'material-ui/TextField'
+import { userFormValidate, driveAge } from 'utils/helpers'
+import { cars } from 'utils/fakeData'
+
+const carsToArr = (arr) => 
+  (R.map((item) => R.is(Object)(item) ? R.prop('code', item) : item, arr))
+const prepareCars = R.pipe(R.toPairs, R.map(carsToArr), R.map(R.zipObj(['key', 'value'])))(cars)
 
 class UserForm extends Component {
   render() {
     const { handleSubmite } = this.props
     return (
-      <div>
+      <div className="user user--form">
         <form onSubmit={handleSubmite}>
           <Field name="name" component={Input} label="Name" />
-          <div className="input">
-            <label>Age</label>
-          </div>
-          <Select native >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </Select>
-          <div className="input">
-            <label>Car</label>
-          </div>
-          <Select native >
-            <option value={10}>Ten</option>
-            <option value={20}>Twenty</option>
-            <option value={30}>Thirty</option>
-          </Select>
           <Field name="email" component={Input} label="Email" />          
+          <Field
+            label="Cars"
+            name="cars"
+            component={Select}
+            items={prepareCars}
+          />
+          <Field
+            label="Drive Age(years)"
+            name="drive-age"
+            component={Select}
+            items={driveAge(30)} 
+          /> 
         </form>
       </div>
     );
   }
 }
-
 
 export default reduxForm({ form: 'userForm', validate: userFormValidate })(UserForm)
