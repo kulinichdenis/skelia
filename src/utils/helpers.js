@@ -1,9 +1,11 @@
-export const tokenState = (state) => {
+import R from 'ramda'
+
+export const tokenSelector = (state) => {
   const { token } = state.user.data
   return token
 }
 
-export const draftState = (state) => state.user.draftId
+export const draftSelector = (state) => state.user.draftId
 export const emailSelector = (state) => state.user.emailStore
 
 export const inputValidate = values => {
@@ -33,5 +35,15 @@ export const userFormValidate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
+  if (!values.cars) {
+    errors.cars = 'Required'
+  }
+  if (!values['drive-age']) {
+    errors['drive-age'] = 'Required'
+  } 
   return errors
 }
+
+export const driveAge = (maxYears) => {
+  return R.map((item) => ({ key: item, value: item }))(R.range(1, maxYears))
+} 
