@@ -8,41 +8,46 @@ export const tokenSelector = (state) => {
 export const draftSelector = (state) => state.user.draftId
 export const emailSelector = (state) => state.user.emailStore
 
-export const inputValidate = values => {
-  const errors = {}
-  if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length <= 6) {
-    errors.password = 'Must be 6 characters or more'
-  }
+/* Validation Form */
+const validEmail = ({ values, errors }) => {
+  const error = R.clone(errors)
   if (!values.email) {
-    errors.email = 'Required'
+    error.email = 'Required'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+    error.email = 'Invalid email address'
   }
+  return { values, errors: error }
+}
+
+const validInput = (fieldName) => ({ values, errors }) => {
+  const error = R.clone(errors)
+  if (!values[fieldName]) {
+    error[fieldName] = 'Required'
+  } else if (values[fieldName].length <= 6) {
+    error[fieldName] = 'Must be 6 characters or more'
+  }
+  return { values, errors: error }
+}
+
+const validSelector = (fieldName) => ({ values, errors }) => {
+  const error = R.clone(errors)
+  if (!values[fieldName]) {
+    error[fieldName] = 'Required'
+  }
+  return { values, errors: error }
+}
+
+export const validationUserForm = values => {
+  const { errors } = R.pipe(validEmail, validInput('name'), validSelector('cars'), validSelector('drive-age'))({values, errors: {}})
   return errors
 }
 
-export const userFormValidate = values => {
-  const errors = {}
-  if (!values.name) {
-    errors.name = 'Required'
-  } else if (values.name.length <= 6) {
-    errors.name = 'Must be 6 characters or more'
-  }
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (!values.cars) {
-    errors.cars = 'Required'
-  }
-  if (!values['drive-age']) {
-    errors['drive-age'] = 'Required'
-  } 
+export const inputValidate = values => {
+  const { errors } = R.pipe(validEmail, validInput('password'))({values, errors: {}})
   return errors
 }
+
+/* Validation Form End */
 
 export const driveAge = (maxYears) => {
   return R.map((item) => ({ key: item, value: item }))(R.range(1, maxYears))

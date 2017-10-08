@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import { Input, Select } from './Form'
 import SelectUI from 'material-ui/Select'
 import TextField from 'material-ui/TextField'
-import { userFormValidate, driveAge } from 'utils/helpers'
+import { validationUserForm, driveAge } from 'utils/helpers'
 import { cars } from 'utils/fakeData'
 
 const carsToArr = (arr) => 
@@ -37,4 +37,4 @@ class UserForm extends Component {
   }
 }
 
-export default reduxForm({ form: 'userForm', validate: userFormValidate })(UserForm)
+export default reduxForm({ form: 'userForm', validate: validationUserForm })(UserForm)
