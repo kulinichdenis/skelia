@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from 'containers/App'
 import store from 'store'
-
+import './style/reset.scss'
 import './style/style.scss'
 
 ReactDOM.render(
