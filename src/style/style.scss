@@ -6,6 +6,13 @@ body {
   height: 50vh;
 }
 
+.progress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
 .login {
   display: flex;
   justify-content: center;
@@ -35,14 +42,23 @@ body {
 }
 
 .user {
-  background: #eee;
   &--header {
     display: flex;
     justify-content: space-between;
   }
-}
+  &--form, &--status {
+    display: flex;
+    justify-content: center; 
+  }
+  &--form {
+    margin-bottom: 40px;
+  }
+  &--status {
+    color: #0800ff;
+  }
 
-.content {
-  display: flex;
-  justify-content: space-around;
+  .content {
+    display: flex;
+    justify-content: space-around;
+  }
 }
