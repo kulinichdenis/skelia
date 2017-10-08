@@ -19,7 +19,7 @@ class LoginUser extends Component {
     return (
       <div className="login">
         { progress.status ? 
-          <Progress/> :
+          <Progress className="progress" /> :
           <Login onSubmit={this.login} serverError={error}/>
         }
       </div>

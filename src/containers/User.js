@@ -19,21 +19,18 @@ class User extends Component {
     sendEmail()
   }  
   getUser() {
-    // debugger
-    const { data: { userId }, logout, history, progress, prices, emailStore } = this.props
+    const { data: { userId }, logout, history,
+            progress, prices, emailStore: { email, statusText } } = this.props
     const logoutSetArgsHistory = logout.bind(null, history)
-    const { email, statusText } = emailStore
-    console.log(email, statusText)
-    // debugger
     return (
-      <div>
-        { progress.status ? <Progress /> :
+      <div className="user">
+      { progress.status ? <Progress className="progress" /> :
           <div>
-            <div className="user user--header">
+            <div className="user--header">
               UserID: { userId }
               <Button onClick={logoutSetArgsHistory}>Logout</Button>
             </div>
-            { email && statusText && <p>{statusText}</p> }
+            { email && statusText && <p className="user--status">{statusText}</p> }
             <UserForm onSubmit={this.handlePrice} />
             <div className="content">
               { prices.map((props, index) =>
@@ -47,7 +44,6 @@ class User extends Component {
     )
   }
   render() {
-    console.log('test')
     const { userId } = this.props.data
     return (
       <div>
