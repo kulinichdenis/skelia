@@ -29,7 +29,7 @@ const validInput = (fieldName) => ({ values, errors }) => {
   return { values, errors: error }
 }
 
-const validSelector = (fieldName) => ({ values, errors }) => {
+const validSelect = (fieldName) => ({ values, errors }) => {
   const error = R.clone(errors)
   if (!values[fieldName]) {
     error[fieldName] = 'Required'
@@ -38,7 +38,7 @@ const validSelector = (fieldName) => ({ values, errors }) => {
 }
 
 export const validationUserForm = values => {
-  const { errors } = R.pipe(validEmail, validInput('name'), validSelector('cars'), validSelector('drive-age'))({values, errors: {}})
+  const { errors } = R.pipe(validEmail, validInput('name'), validSelect('cars'), validSelect('drive-age'))({values, errors: {}})
   return errors
 }
 
