@@ -10,7 +10,7 @@ import {
   SET_DRAFT_ID,
   SET_USER_EMAIL,
   EMAIL_STATUS
-} from 'constants/index'
+} from 'constants'
 
 /* actions */
 export const fetchUser = (payload, meta) => ({ type: FETCH_USER, payload, meta })
