@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import Input from './Form/Input'
 import Button from 'material-ui/Button'
-import { inputValidate } from 'utils/helpers'
+import { loginValidate } from 'utils/helpers'
 
 class Login extends Component {
   render() {
@@ -20,4 +20,4 @@ class Login extends Component {
   }
 }
 
-export default reduxForm({ form: 'login', validate: inputValidate })(Login)
+export default reduxForm({ form: 'login', validate: loginValidate })(Login)

@@ -37,12 +37,18 @@ const validSelect = (fieldName) => ({ values, errors }) => {
   return { values, errors: error }
 }
 
+export const formValidation = {
+  validEmail,
+  validInput,
+  validSelect
+}
+
 export const validationUserForm = values => {
   const { errors } = R.pipe(validEmail, validInput('name'), validSelect('cars'), validSelect('drive-age'))({values, errors: {}})
   return errors
 }
 
-export const inputValidate = values => {
+export const loginValidate = values => {
   const { errors } = R.pipe(validEmail, validInput('password'))({values, errors: {}})
   return errors
 }

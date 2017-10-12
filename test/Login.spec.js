@@ -6,7 +6,9 @@ import Login from '../src/components/Login'
 
 describe('component <Login />', () => {
   let login, onSubmit, onSave
+  
   const testValue = "aaaa"
+  
   onSubmit = sinon.spy()
   
   const props = {
