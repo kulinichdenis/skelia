@@ -1,10 +1,7 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects'
 import { FETCH_USER, LOG_OUT, DEFAUTL_USER_STATE, SEND_EMAIL } from 'constants/index'
-import { fetchUserSuccess,
-  fetchUserError, defaultUserState,
-  setDraftId, setPrices,
-  emailStatus
-} from 'reducers/user'
+import { fetchUserSuccess, fetchUserError, defaultUserState,
+  setDraftId, setPrices, emailStatus } from 'reducers/user'
 import { start_progress, stop_progress } from 'reducers/progress'
 import { authUser, getDrafts, logoutUser, url, requestCreator } from 'utils/apiClient'
 import { tokenSelector, draftSelector, emailSelector } from 'utils/helpers'
