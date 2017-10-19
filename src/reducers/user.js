@@ -1,4 +1,4 @@
-import createReducer from 'create-reducer-map'
+import { createAction, handleActions } from 'redux-actions'
 import { 
   FETCH_USER,
   FETCH_USER_SUCCESS,
@@ -13,16 +13,16 @@ import {
 } from 'constants/index'
 
 /* actions */
-export const fetchUser = (payload, meta) => ({ type: FETCH_USER, payload, meta })
-export const fetchUserSuccess = (payload) => ({ type: FETCH_USER_SUCCESS, payload })
-export const fetchUserError = (payload) => ({ type: FETCH_USER_ERROR, payload })
-export const setDraftId = (payload) => ({ type: SET_DRAFT_ID, payload })
-export const setPrices = (payload) => ({ type: SET_PRICES, payload }) 
-export const sendEmail = (payload) => ({ type: SEND_EMAIL, payload })
-export const setUserEmail = (payload) => ({ type: SET_USER_EMAIL, payload }) 
-export const emailStatus = (payload) => ({ type: EMAIL_STATUS, payload })
+export const fetchUserSuccess = createAction(FETCH_USER_SUCCESS)
+export const fetchUserError = createAction(FETCH_USER_ERROR)
+export const setDraftId = createAction(SET_DRAFT_ID)
+export const setPrices = createAction(SET_PRICES)
+export const sendEmail = createAction(SEND_EMAIL)
+export const setUserEmail = createAction(SET_USER_EMAIL)
+export const emailStatus = createAction(EMAIL_STATUS)
+export const defaultUserState = createAction(DEFAUTL_USER_STATE)
 export const logout = (meta) => ({ type: LOG_OUT, meta }) 
-export const defaultUserState = () => ({ type: DEFAUTL_USER_STATE }) 
+export const fetchUser = (payload, meta) => ({ type: FETCH_USER, payload, meta })
 
 /* reducers */
 const initialState = {
@@ -33,24 +33,24 @@ const initialState = {
   prices: []
 }
 
-export default createReducer(initialState, {
-  [FETCH_USER_SUCCESS]: (state, payload) => {
+export default handleActions({
+  [FETCH_USER_SUCCESS]: (state, { payload }) => {
     return { ...state, data: payload }
   },
-  [FETCH_USER_ERROR]: (state, payload) => {
+  [FETCH_USER_ERROR]: (state, { payload }) => {
     return { data: initialState.data, error: payload }
   },
-  [SET_PRICES]: (state, payload) => {
+  [SET_PRICES]: (state, { payload }) => {
     return { ...state, prices: payload }
   },
-  [SET_DRAFT_ID]: (state, payload) => {
+  [SET_DRAFT_ID]: (state, { payload }) => {
     return { ...state, draftId: payload }
   },
-  [SET_USER_EMAIL]: (state, payload) => {
+  [SET_USER_EMAIL]: (state, { payload }) => {
     return { ...state, emailStore: { ...state.emailStore, email: payload }}
   },
-  [EMAIL_STATUS]: (state, payload) => {
+  [EMAIL_STATUS]: (state, { payload }) => {
     return { ...state, emailStore: { ...state.emailStore, statusText: payload }}
   },
   [DEFAUTL_USER_STATE]: () => ({ ...initialState })
-})
+}, initialState)
