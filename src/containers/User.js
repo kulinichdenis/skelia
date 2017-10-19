@@ -21,14 +21,13 @@ class User extends Component {
   getUser() {
     const { data: { userId }, logout, history,
             progress, prices, emailStore: { email, statusText } } = this.props
-    const logoutSetArgsHistory = logout.bind(null, history)
     return (
       <div className="user">
       { progress.status ? <Progress className="progress" /> :
           <div>
             <div className="user--header">
               UserID: { userId }
-              <Button onClick={logoutSetArgsHistory}>Logout</Button>
+              <Button onClick={logout}>Logout</Button>
             </div>
             { email && statusText && <p className="user--status">{statusText}</p> }
             <UserForm onSubmit={this.handlePrice} />

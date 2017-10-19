@@ -21,8 +21,8 @@ export const sendEmail = createAction(SEND_EMAIL)
 export const setUserEmail = createAction(SET_USER_EMAIL)
 export const emailStatus = createAction(EMAIL_STATUS)
 export const defaultUserState = createAction(DEFAUTL_USER_STATE)
-export const logout = (meta) => ({ type: LOG_OUT, meta }) 
-export const fetchUser = (payload, meta) => ({ type: FETCH_USER, payload, meta })
+export const logout = createAction(LOG_OUT) 
+export const fetchUser = createAction(FETCH_USER)
 
 /* reducers */
 const initialState = {

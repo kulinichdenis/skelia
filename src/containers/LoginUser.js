@@ -10,8 +10,8 @@ class LoginUser extends Component {
     this.login = this.login.bind(this)
   }
   login() {
-    const { fetchUser, history } = this.props
-    fetchUser({ email: 'test+exercice@qover.com', password: 'qoverexercise'}, history)
+    const { fetchUser } = this.props
+    fetchUser({ email: 'test+exercice@qover.com', password: 'qoverexercise'})
   }
 
   render() {

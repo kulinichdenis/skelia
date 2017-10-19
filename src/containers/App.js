@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Switch, Route, Router } from 'react-router-dom'
 import LoginUser from './LoginUser'
 import User from './User'
+import history from 'utils/history'
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path='/' render={(props) => <LoginUser {...props} />} />
           <Route path='/user' render={(props) => <User {...props} /> } />

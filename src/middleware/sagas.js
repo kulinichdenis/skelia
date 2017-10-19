@@ -9,6 +9,7 @@ import { start_progress, stop_progress } from 'reducers/progress'
 import { authUser, getDrafts, logoutUser, url, requestCreator } from 'utils/apiClient'
 import { tokenSelector, draftSelector, emailSelector } from 'utils/helpers'
 import { mainData, dataPrice, emailData } from 'utils/fakeData'
+import history from 'utils/history'
 
 function* fetchUser(action) {
   yield put(start_progress())
@@ -21,7 +22,7 @@ function* fetchUser(action) {
     const price = yield call(requestCreator, dataPrice, url.prices(draftId))
     yield put(setPrices(price.data.prices))
     yield put(stop_progress())
-    yield action.meta.push('/user')
+    yield history.push('/user')
   } catch(error) {
     yield put(fetchUserError('Problem with authorization, repeat please'))
     yield put(stop_progress())
@@ -33,10 +34,10 @@ function* logout(action) {
   try {
     const result = yield call(logoutUser, token)
     yield put(defaultUserState())
-    yield action.meta.push('/')
+    yield history.push('/')
   } catch(error) {
     yield put(fetchUserError('Problem with logout'))
-    yield action.meta.push('/')
+    yield history.push('/')
   }
 }
 
